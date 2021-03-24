@@ -1,7 +1,7 @@
 import { TestingModule, Test } from "@nestjs/testing";
 
 import { ShutdownService } from "./shutdown.service";
-import { CommonLoggerService } from "@glory-iot-dev/common-logger";
+
 import { of, throwError } from "rxjs";
 
 describe("ShutdownService", () => {
@@ -21,7 +21,7 @@ describe("ShutdownService", () => {
     jest.restoreAllMocks();
 
     module = await Test.createTestingModule({
-      providers: [ShutdownService, { provide: CommonLoggerService, useClass: LoggerServiceMock }],
+      providers: [ShutdownService],
     }).compile();
 
     service = module.get<ShutdownService>(ShutdownService);

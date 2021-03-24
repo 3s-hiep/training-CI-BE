@@ -10,7 +10,6 @@ import { ConfigService } from "../service/config";
 class ServiceMock {
   public configureGracefulShutdown = jest.fn((func) => func());
   public teardown$ = jest.fn();
-  public getPublicKeys$ = jest.fn(() => of(1));
 }
 
 class NestMicroserviceMock {
@@ -72,7 +71,6 @@ describe(App.name, () => {
           expect(app.listen).toHaveBeenCalled();
           expect(app.ServiceMock.configureGracefulShutdown).toHaveBeenCalled();
           expect(app.ServiceMock.teardown$).toHaveBeenCalledWith(app);
-          expect(app.ServiceMock.getPublicKeys$).toHaveBeenCalled();
         })
         .catch((e) => fail(e));
     });
