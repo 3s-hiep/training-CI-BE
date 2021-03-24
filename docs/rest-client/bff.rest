@@ -1,0 +1,116 @@
+//------------------------------------------------------------------------------------------------
+
+// environment - 200
+GET http://localhost:3000/env
+
+###
+
+// condition monitoring - 200
+GET http://localhost:3000/hello-world
+
+###
+
+//------------------------------------------------------------------------------------------------
+
+// login - 200
+GET http://localhost:3000/login?redirectUrl=http://localhost:3000/firstLogin
+
+###
+
+// login - 4xxx,5xxx
+GET http://localhost:3000/login?redirectUrl=http://localhost:3000/firstLogin
+
+###
+
+//------------------------------------------------------------------------------------------------
+
+// token
+GET http://localhost:3000/token?applicationId=3&redirectUrl=http://localhost:3200/token_callback&code=cX8dw7_CuQTDtWTCtVc7wo0gwrxUw4rCi8KqZQZPFyDCtMO6HlsdHsOGwo7Cu1FowpHDqH7DgsOma8Khw5jCjGAWwpPDiMOMDcKaWMOvQGPCqsOfw5nDr8OJwrl0w5bDqcK9w5PCn8Ojw4A9woXDhMOtw5k2woHCuBvCgcK7w5nDtsKuwqzCiMONw7zDh8KdOcKhwoPDlm8bw43DtcOWSxZyUEfDllhjw4ogWsKeUC0Owo8LwoTCuAjDjUjCncKbdMKUwoEYT8KWKMKVwr4cTsKSwqrDlMK2WsK3wp43LyLCjnEFPUIiEcKzX8OhwoZ0Cm8WSjZyV21kwq4kwoDClANPwqDDtm0ZaAl_w4BXw5vDpsKyFy3DggZ2wprCsyzDkcKBYQ
+
+###
+
+//------------------------------------------------------------------------------------------------
+
+// changePassword - 201
+POST http://localhost:3000/changePassword
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImFwcElkLTE3ZGMwODNkLTVkZWMtNDdjNS04NGNlLThmZDJlYzMwZWY3Yi0yMDE5LTA5LTIwVDA0OjMxOjUyLjgwMSIsInZlciI6NH0.eyJpc3MiOiJodHRwczovL2pwLXRvay5hcHBpZC5jbG91ZC5pYm0uY29tL29hdXRoL3Y0LzE3ZGMwODNkLTVkZWMtNDdjNS04NGNlLThmZDJlYzMwZWY3YiIsImV4cCI6MTYwODE1OTYwMSwiYXVkIjpbIjA5OWExZTE0LWFkMGItNDU0ZS1hMTUzLTE5ODJhYTdmMTFiNyJdLCJzdWIiOiJlMTdhY2EyNC01NjYzLTRjYjItOWJmZC0yNmM1Y2FlM2FjYzciLCJhbXIiOlsiY2xvdWRfZGlyZWN0b3J5Il0sImlhdCI6MTYwODA3MzIwMSwidGVuYW50IjoiMTdkYzA4M2QtNWRlYy00N2M1LTg0Y2UtOGZkMmVjMzBlZjdiIiwic2NvcGUiOiJvcGVuaWQgYXBwaWRfZGVmYXVsdCBhcHBpZF9yZWFkdXNlcmF0dHIgYXBwaWRfcmVhZHByb2ZpbGUgYXBwaWRfd3JpdGV1c2VyYXR0ciBhcHBpZF9hdXRoZW50aWNhdGVkIn0.C8uc4Eze3f7Bg-KOlWQit0TXc4DEGDLlojelIgTeSffQb8lOc__5GBrwT-2AOkOfUEPjIsbBFbYxh5H1RffQynY0ksbglFLX6k0RNt0AImXt1NRrbKChDa0I_S5zZlcfoFtf83eSxbU0JMRz13IPREDE6e8C1ltIXjGdz_uwcoKW9G273-4t6sGves0mie9o6W7IkKDTnBSOq1gCIXKtUL_bj7TWkLsSfQfkZd3JXLfIPWkymvZH7W9JvFfGOOy512dyRe6WSON1HN43nUJb6eWo5kRmAISr3a7asUZpm8xOwOcnAyG22ibNNlqMIkCU_b54AHGvPamS932nymtFJg
+X-requestId: 1
+
+{
+  "email": "masataka.matsumoto@nsm-nsgroup.co.jp"
+}
+
+###
+
+// changePassword - 4xxx,5xxx
+POST http://localhost:3000/changePassword
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImFwcElkLTE3ZGMwODNkLTVkZWMtNDdjNS04NGNlLThmZDJlYzMwZWY3Yi0yMDE5LTA5LTIwVDA0OjMxOjUyLjgwMSIsInZlciI6NH0.eyJpc3MiOiJodHRwczovL2pwLXRvay5hcHBpZC5jbG91ZC5pYm0uY29tL29hdXRoL3Y0LzE3ZGMwODNkLTVkZWMtNDdjNS04NGNlLThmZDJlYzMwZWY3YiIsImV4cCI6MTYwODE1OTYwMSwiYXVkIjpbIjA5OWExZTE0LWFkMGItNDU0ZS1hMTUzLTE5ODJhYTdmMTFiNyJdLCJzdWIiOiJlMTdhY2EyNC01NjYzLTRjYjItOWJmZC0yNmM1Y2FlM2FjYzciLCJhbXIiOlsiY2xvdWRfZGlyZWN0b3J5Il0sImlhdCI6MTYwODA3MzIwMSwidGVuYW50IjoiMTdkYzA4M2QtNWRlYy00N2M1LTg0Y2UtOGZkMmVjMzBlZjdiIiwic2NvcGUiOiJvcGVuaWQgYXBwaWRfZGVmYXVsdCBhcHBpZF9yZWFkdXNlcmF0dHIgYXBwaWRfcmVhZHByb2ZpbGUgYXBwaWRfd3JpdGV1c2VyYXR0ciBhcHBpZF9hdXRoZW50aWNhdGVkIn0.C8uc4Eze3f7Bg-KOlWQit0TXc4DEGDLlojelIgTeSffQb8lOc__5GBrwT-2AOkOfUEPjIsbBFbYxh5H1RffQynY0ksbglFLX6k0RNt0AImXt1NRrbKChDa0I_S5zZlcfoFtf83eSxbU0JMRz13IPREDE6e8C1ltIXjGdz_uwcoKW9G273-4t6sGves0mie9o6W7IkKDTnBSOq1gCIXKtUL_bj7TWkLsSfQfkZd3JXLfIPWkymvZH7W9JvFfGOOy512dyRe6WSON1HN43nUJb6eWo5kRmAISr3a7asUZpm8xOwOcnAyG22ibNNlqMIkCU_b54AHGvPamS932nymtFJg
+X-requestId: 1
+
+{
+}
+
+###
+
+//------------------------------------------------------------------------------------------------
+
+// logout - 201
+POST http://localhost:3000/logout
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImFwcElkLTE3ZGMwODNkLTVkZWMtNDdjNS04NGNlLThmZDJlYzMwZWY3Yi0yMDE5LTA5LTIwVDA0OjMxOjUyLjgwMSIsInZlciI6NH0.eyJpc3MiOiJodHRwczovL2pwLXRvay5hcHBpZC5jbG91ZC5pYm0uY29tL29hdXRoL3Y0LzE3ZGMwODNkLTVkZWMtNDdjNS04NGNlLThmZDJlYzMwZWY3YiIsImV4cCI6MTYwODE1OTYwMSwiYXVkIjpbIjA5OWExZTE0LWFkMGItNDU0ZS1hMTUzLTE5ODJhYTdmMTFiNyJdLCJzdWIiOiJlMTdhY2EyNC01NjYzLTRjYjItOWJmZC0yNmM1Y2FlM2FjYzciLCJhbXIiOlsiY2xvdWRfZGlyZWN0b3J5Il0sImlhdCI6MTYwODA3MzIwMSwidGVuYW50IjoiMTdkYzA4M2QtNWRlYy00N2M1LTg0Y2UtOGZkMmVjMzBlZjdiIiwic2NvcGUiOiJvcGVuaWQgYXBwaWRfZGVmYXVsdCBhcHBpZF9yZWFkdXNlcmF0dHIgYXBwaWRfcmVhZHByb2ZpbGUgYXBwaWRfd3JpdGV1c2VyYXR0ciBhcHBpZF9hdXRoZW50aWNhdGVkIn0.C8uc4Eze3f7Bg-KOlWQit0TXc4DEGDLlojelIgTeSffQb8lOc__5GBrwT-2AOkOfUEPjIsbBFbYxh5H1RffQynY0ksbglFLX6k0RNt0AImXt1NRrbKChDa0I_S5zZlcfoFtf83eSxbU0JMRz13IPREDE6e8C1ltIXjGdz_uwcoKW9G273-4t6sGves0mie9o6W7IkKDTnBSOq1gCIXKtUL_bj7TWkLsSfQfkZd3JXLfIPWkymvZH7W9JvFfGOOy512dyRe6WSON1HN43nUJb6eWo5kRmAISr3a7asUZpm8xOwOcnAyG22ibNNlqMIkCU_b54AHGvPamS932nymtFJg
+X-requestId: 1
+
+###
+
+// logout - 4xxx,5xxx
+POST http://localhost:3000/logout
+Authorization: Bearer token
+X-requestId: 1
+
+###
+
+//------------------------------------------------------------------------------------------------
+
+###
+// get areas
+
+GET http://localhost:3001/areas
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImFwcElkLTE3ZGMwODNkLTVkZWMtNDdjNS04NGNlLThmZDJlYzMwZWY3Yi0yMDE5LTA5LTIwVDA0OjMxOjUyLjgwMSIsInZlciI6NH0.eyJpc3MiOiJodHRwczovL2pwLXRvay5hcHBpZC5jbG91ZC5pYm0uY29tL29hdXRoL3Y0LzE3ZGMwODNkLTVkZWMtNDdjNS04NGNlLThmZDJlYzMwZWY3YiIsImV4cCI6MTYwODE1OTYwMSwiYXVkIjpbIjA5OWExZTE0LWFkMGItNDU0ZS1hMTUzLTE5ODJhYTdmMTFiNyJdLCJzdWIiOiJlMTdhY2EyNC01NjYzLTRjYjItOWJmZC0yNmM1Y2FlM2FjYzciLCJhbXIiOlsiY2xvdWRfZGlyZWN0b3J5Il0sImlhdCI6MTYwODA3MzIwMSwidGVuYW50IjoiMTdkYzA4M2QtNWRlYy00N2M1LTg0Y2UtOGZkMmVjMzBlZjdiIiwic2NvcGUiOiJvcGVuaWQgYXBwaWRfZGVmYXVsdCBhcHBpZF9yZWFkdXNlcmF0dHIgYXBwaWRfcmVhZHByb2ZpbGUgYXBwaWRfd3JpdGV1c2VyYXR0ciBhcHBpZF9hdXRoZW50aWNhdGVkIn0.C8uc4Eze3f7Bg-KOlWQit0TXc4DEGDLlojelIgTeSffQb8lOc__5GBrwT-2AOkOfUEPjIsbBFbYxh5H1RffQynY0ksbglFLX6k0RNt0AImXt1NRrbKChDa0I_S5zZlcfoFtf83eSxbU0JMRz13IPREDE6e8C1ltIXjGdz_uwcoKW9G273-4t6sGves0mie9o6W7IkKDTnBSOq1gCIXKtUL_bj7TWkLsSfQfkZd3JXLfIPWkymvZH7W9JvFfGOOy512dyRe6WSON1HN43nUJb6eWo5kRmAISr3a7asUZpm8xOwOcnAyG22ibNNlqMIkCU_b54AHGvPamS932nymtFJg
+X-requestId: 1
+
+
+###
+// get stores
+
+GET http://localhost:3001/stores
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImFwcElkLTE3ZGMwODNkLTVkZWMtNDdjNS04NGNlLThmZDJlYzMwZWY3Yi0yMDE5LTA5LTIwVDA0OjMxOjUyLjgwMSIsInZlciI6NH0.eyJpc3MiOiJodHRwczovL2pwLXRvay5hcHBpZC5jbG91ZC5pYm0uY29tL29hdXRoL3Y0LzE3ZGMwODNkLTVkZWMtNDdjNS04NGNlLThmZDJlYzMwZWY3YiIsImV4cCI6MTYwODE1OTYwMSwiYXVkIjpbIjA5OWExZTE0LWFkMGItNDU0ZS1hMTUzLTE5ODJhYTdmMTFiNyJdLCJzdWIiOiJlMTdhY2EyNC01NjYzLTRjYjItOWJmZC0yNmM1Y2FlM2FjYzciLCJhbXIiOlsiY2xvdWRfZGlyZWN0b3J5Il0sImlhdCI6MTYwODA3MzIwMSwidGVuYW50IjoiMTdkYzA4M2QtNWRlYy00N2M1LTg0Y2UtOGZkMmVjMzBlZjdiIiwic2NvcGUiOiJvcGVuaWQgYXBwaWRfZGVmYXVsdCBhcHBpZF9yZWFkdXNlcmF0dHIgYXBwaWRfcmVhZHByb2ZpbGUgYXBwaWRfd3JpdGV1c2VyYXR0ciBhcHBpZF9hdXRoZW50aWNhdGVkIn0.C8uc4Eze3f7Bg-KOlWQit0TXc4DEGDLlojelIgTeSffQb8lOc__5GBrwT-2AOkOfUEPjIsbBFbYxh5H1RffQynY0ksbglFLX6k0RNt0AImXt1NRrbKChDa0I_S5zZlcfoFtf83eSxbU0JMRz13IPREDE6e8C1ltIXjGdz_uwcoKW9G273-4t6sGves0mie9o6W7IkKDTnBSOq1gCIXKtUL_bj7TWkLsSfQfkZd3JXLfIPWkymvZH7W9JvFfGOOy512dyRe6WSON1HN43nUJb6eWo5kRmAISr3a7asUZpm8xOwOcnAyG22ibNNlqMIkCU_b54AHGvPamS932nymtFJg
+X-requestId: 1
+###
+ // get roles
+
+GET http://localhost:3001/cis/roles
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImFwcElkLTE3ZGMwODNkLTVkZWMtNDdjNS04NGNlLThmZDJlYzMwZWY3Yi0yMDE5LTA5LTIwVDA0OjMxOjUyLjgwMSIsInZlciI6NH0.eyJpc3MiOiJodHRwczovL2pwLXRvay5hcHBpZC5jbG91ZC5pYm0uY29tL29hdXRoL3Y0LzE3ZGMwODNkLTVkZWMtNDdjNS04NGNlLThmZDJlYzMwZWY3YiIsImV4cCI6MTYwODE1OTYwMSwiYXVkIjpbIjA5OWExZTE0LWFkMGItNDU0ZS1hMTUzLTE5ODJhYTdmMTFiNyJdLCJzdWIiOiJlMTdhY2EyNC01NjYzLTRjYjItOWJmZC0yNmM1Y2FlM2FjYzciLCJhbXIiOlsiY2xvdWRfZGlyZWN0b3J5Il0sImlhdCI6MTYwODA3MzIwMSwidGVuYW50IjoiMTdkYzA4M2QtNWRlYy00N2M1LTg0Y2UtOGZkMmVjMzBlZjdiIiwic2NvcGUiOiJvcGVuaWQgYXBwaWRfZGVmYXVsdCBhcHBpZF9yZWFkdXNlcmF0dHIgYXBwaWRfcmVhZHByb2ZpbGUgYXBwaWRfd3JpdGV1c2VyYXR0ciBhcHBpZF9hdXRoZW50aWNhdGVkIn0.C8uc4Eze3f7Bg-KOlWQit0TXc4DEGDLlojelIgTeSffQb8lOc__5GBrwT-2AOkOfUEPjIsbBFbYxh5H1RffQynY0ksbglFLX6k0RNt0AImXt1NRrbKChDa0I_S5zZlcfoFtf83eSxbU0JMRz13IPREDE6e8C1ltIXjGdz_uwcoKW9G273-4t6sGves0mie9o6W7IkKDTnBSOq1gCIXKtUL_bj7TWkLsSfQfkZd3JXLfIPWkymvZH7W9JvFfGOOy512dyRe6WSON1HN43nUJb6eWo5kRmAISr3a7asUZpm8xOwOcnAyG22ibNNlqMIkCU_b54AHGvPamS932nymtFJg
+X-requestId: 1
+
+###
+
+// get users
+
+GET http://localhost:3001/cis/users?limit=10&offest=0
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImFwcElkLTE3ZGMwODNkLTVkZWMtNDdjNS04NGNlLThmZDJlYzMwZWY3Yi0yMDE5LTA5LTIwVDA0OjMxOjUyLjgwMSIsInZlciI6NH0.eyJpc3MiOiJodHRwczovL2pwLXRvay5hcHBpZC5jbG91ZC5pYm0uY29tL29hdXRoL3Y0LzE3ZGMwODNkLTVkZWMtNDdjNS04NGNlLThmZDJlYzMwZWY3YiIsImV4cCI6MTYwODE1OTYwMSwiYXVkIjpbIjA5OWExZTE0LWFkMGItNDU0ZS1hMTUzLTE5ODJhYTdmMTFiNyJdLCJzdWIiOiJlMTdhY2EyNC01NjYzLTRjYjItOWJmZC0yNmM1Y2FlM2FjYzciLCJhbXIiOlsiY2xvdWRfZGlyZWN0b3J5Il0sImlhdCI6MTYwODA3MzIwMSwidGVuYW50IjoiMTdkYzA4M2QtNWRlYy00N2M1LTg0Y2UtOGZkMmVjMzBlZjdiIiwic2NvcGUiOiJvcGVuaWQgYXBwaWRfZGVmYXVsdCBhcHBpZF9yZWFkdXNlcmF0dHIgYXBwaWRfcmVhZHByb2ZpbGUgYXBwaWRfd3JpdGV1c2VyYXR0ciBhcHBpZF9hdXRoZW50aWNhdGVkIn0.C8uc4Eze3f7Bg-KOlWQit0TXc4DEGDLlojelIgTeSffQb8lOc__5GBrwT-2AOkOfUEPjIsbBFbYxh5H1RffQynY0ksbglFLX6k0RNt0AImXt1NRrbKChDa0I_S5zZlcfoFtf83eSxbU0JMRz13IPREDE6e8C1ltIXjGdz_uwcoKW9G273-4t6sGves0mie9o6W7IkKDTnBSOq1gCIXKtUL_bj7TWkLsSfQfkZd3JXLfIPWkymvZH7W9JvFfGOOy512dyRe6WSON1HN43nUJb6eWo5kRmAISr3a7asUZpm8xOwOcnAyG22ibNNlqMIkCU_b54AHGvPamS932nymtFJg
+X-requestId: 1
+
+
+###
+// get users
+
+GET http://localhost:3001/cis/users/cisuser1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImFwcElkLTE3ZGMwODNkLTVkZWMtNDdjNS04NGNlLThmZDJlYzMwZWY3Yi0yMDE5LTA5LTIwVDA0OjMxOjUyLjgwMSIsInZlciI6NH0.eyJpc3MiOiJodHRwczovL2pwLXRvay5hcHBpZC5jbG91ZC5pYm0uY29tL29hdXRoL3Y0LzE3ZGMwODNkLTVkZWMtNDdjNS04NGNlLThmZDJlYzMwZWY3YiIsImV4cCI6MTYwODE1OTYwMSwiYXVkIjpbIjA5OWExZTE0LWFkMGItNDU0ZS1hMTUzLTE5ODJhYTdmMTFiNyJdLCJzdWIiOiJlMTdhY2EyNC01NjYzLTRjYjItOWJmZC0yNmM1Y2FlM2FjYzciLCJhbXIiOlsiY2xvdWRfZGlyZWN0b3J5Il0sImlhdCI6MTYwODA3MzIwMSwidGVuYW50IjoiMTdkYzA4M2QtNWRlYy00N2M1LTg0Y2UtOGZkMmVjMzBlZjdiIiwic2NvcGUiOiJvcGVuaWQgYXBwaWRfZGVmYXVsdCBhcHBpZF9yZWFkdXNlcmF0dHIgYXBwaWRfcmVhZHByb2ZpbGUgYXBwaWRfd3JpdGV1c2VyYXR0ciBhcHBpZF9hdXRoZW50aWNhdGVkIn0.C8uc4Eze3f7Bg-KOlWQit0TXc4DEGDLlojelIgTeSffQb8lOc__5GBrwT-2AOkOfUEPjIsbBFbYxh5H1RffQynY0ksbglFLX6k0RNt0AImXt1NRrbKChDa0I_S5zZlcfoFtf83eSxbU0JMRz13IPREDE6e8C1ltIXjGdz_uwcoKW9G273-4t6sGves0mie9o6W7IkKDTnBSOq1gCIXKtUL_bj7TWkLsSfQfkZd3JXLfIPWkymvZH7W9JvFfGOOy512dyRe6WSON1HN43nUJb6eWo5kRmAISr3a7asUZpm8xOwOcnAyG22ibNNlqMIkCU_b54AHGvPamS932nymtFJg
+X-requestId: 1
+###
