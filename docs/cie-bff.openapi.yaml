@@ -10,12 +10,13 @@ servers:
   - url: 'http://localhost:3000'
     description: local machine for debug
 paths:
-  /login:
+
+  /users:
     get:
-      summary: get login URL
+      summary: get available users
       responses:
         '200':
-          $ref: '#/components/responses/GetLogin'
+          $ref: '#/components/responses/GetUsersList'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -26,52 +27,18 @@ paths:
           $ref: '#/components/responses/NotFound'
         '500':
           $ref: '#/components/responses/UnexpectedError'
-      operationId: get-login
-      description: Get App ID login screen URL.
-      parameters:
-        - $ref: '#/components/parameters/connect.sid'
-        - schema:
-            type: string
-            minLength: 1
-          in: query
-          name: redirectUrl
-          description: URL to redirect after authentication
+      operationId: get-user
+      description: Get user list
       tags:
-        - User Auth
+        - User
     parameters: []
-  /token:
-    get:
-      summary: get token's
-      tags:
-        - User Auth
-      responses:
-        '200':
-          description: OK
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorised'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '500':
-          $ref: '#/components/responses/UnexpectedError'
-      operationId: get-token
-      description: 'Get access token, refresh token.'
-      parameters:
-        - $ref: '#/components/parameters/connect.sid'
-        - $ref: '#/components/parameters/applicationId'
-        - $ref: '#/components/parameters/redirectUrl'
-        - $ref: '#/components/parameters/code'
-  /userInfo:
+
+  '/users/{userId}':
     get:
       summary: get a user info
-      tags:
-        - User Auth
       responses:
         '200':
-          $ref: '#/components/responses/GetUserInfo'
+          $ref: '#/components/responses/GetUsers'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -82,229 +49,30 @@ paths:
           $ref: '#/components/responses/NotFound'
         '500':
           $ref: '#/components/responses/UnexpectedError'
-      operationId: get-userInfo
-      description: Get a user information.
-      parameters:
-        - $ref: '#/components/parameters/connect.sid'
-        - $ref: '#/components/parameters/applicationId'
-  /logout:
-    post:
-      summary: logout Application
-      operationId: post-logout
-      responses:
-        '201':
-          description: Created
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorised'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '500':
-          $ref: '#/components/responses/UnexpectedError'
-      description: Log out of the application.
-      parameters:
-        - $ref: '#/components/parameters/connect.sid'
+      operationId: get-users-userid
+      description: get a user information
       tags:
-        - User Auth
-  /areas:
-    get:
-      summary: get areas info
-      responses:
-        '200':
-          $ref: '#/components/responses/GetAreas'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorised'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '500':
-          $ref: '#/components/responses/UnexpectedError'
-      operationId: get-areas
-      description: Get areas information
-      tags:
-        - Area
-      parameters:
-        - $ref: '#/components/parameters/connect.sid'
-  /stores:
-    get:
-      summary: get stores info
-      tags:
-        - Store
-      responses:
-        '200':
-          $ref: '#/components/responses/GetStores'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorised'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '500':
-          $ref: '#/components/responses/UnexpectedError'
-      operationId: get-stores
-      description: Get stores information
-      parameters:
-        - $ref: '#/components/parameters/connect.sid'
-        - $ref: '#/components/parameters/areaName'
-  /cis/roles:
-    get:
-      summary: get cis roles
-      responses:
-        '200':
-          $ref: '#/components/responses/GetCisRoles'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorised'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '500':
-          $ref: '#/components/responses/UnexpectedError'
-      operationId: get-cis-roles
-      description: Get cis roles
-      parameters:
-        - $ref: '#/components/parameters/connect.sid'
-      tags:
-        - CIS Role
-    parameters: []
-  /cis/users:
-    get:
-      summary: get available cis users
-      responses:
-        '200':
-          $ref: '#/components/responses/GetCisUsersList'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorised'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '500':
-          $ref: '#/components/responses/UnexpectedError'
-      operationId: get-cis-user
-      description: Get cis user list
-      parameters:
-        - $ref: '#/components/parameters/connect.sid'
-        - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/offset'
-        - schema:
-            type: string
-            minLength: 1
-          in: query
-          name: text
-          description: 'Free text to seach fields (userId, userName)'
-        - $ref: '#/components/parameters/areaName'
-        - $ref: '#/components/parameters/storeName'
-      tags:
-        - CIS User
-    parameters: []
-  '/cis/users/{userId}':
-    get:
-      summary: get a cis user info
-      responses:
-        '200':
-          $ref: '#/components/responses/GetCisUsers'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorised'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '500':
-          $ref: '#/components/responses/UnexpectedError'
-      operationId: get-cis-users-userid
-      parameters:
-        - $ref: '#/components/parameters/connect.sid'
-      description: get a cis user information
-      tags:
-        - CIS User
+        - User
     parameters:
       - $ref: '#/components/parameters/userId'
+
     post:
-      summary: creates new cis users
-      operationId: post-cis-users-userId
+      summary: creates new users
+      operationId: post-users-userId
       responses:
         '201':
           description: Created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PostCisUsers'
-              examples:
-                example-1:
-                  value:
-                    userName: tom
-                    status: Active
-                    roles:
-                      - roleName: Manager
-                    stores:
-                      - storeName: West Store
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorised'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '409':
-          $ref: '#/components/responses/ConflictError'
-        '500':
-          $ref: '#/components/responses/UnexpectedError'
-      parameters:
-        - $ref: '#/components/parameters/connect.sid'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PostCisUsers'
-            examples:
-              example-1:
-                value:
-                  userName: tom
-                  status: Active
-                  roles:
-                    - roleName: Manager
-                  stores:
-                    - storeName: West Store
-      tags:
-        - CIS User
-      description: creates new cis users
-    put:
-      summary: update cis users
-      operationId: put-cis-users-userId
-      responses:
-        '204':
-          description: No Content
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PutCisUsers'
+                $ref: '#/components/schemas/PostUsers'
               examples:
                 example-1:
                   value:
                     newUserId: cieuser004
                     userName: tom
-                    status: Active
-                    roles:
-                      - roleName: Manager
                     stores:
-                      - storeName: West Stores
-                    passwordChangeFlag: true
+                      - name: West Store
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -317,28 +85,70 @@ paths:
           $ref: '#/components/responses/ConflictError'
         '500':
           $ref: '#/components/responses/UnexpectedError'
-      description: update cis users
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PutCisUsers'
+              $ref: '#/components/schemas/PostUsers'
             examples:
               example-1:
                 value:
                   newUserId: cieuser004
                   userName: tom
-                  status: Active
-                  roles:
-                    - roleName: Manager
                   stores:
-                    - storeName: West Stores
-                  passwordChangeFlag: true
+                    - name: West Store
       tags:
-        - CIS User
+        - User
+      description: creates new users
+
+    put:
+      summary: update users
+      operationId: put-users-userId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PutUsers'
+              examples:
+                example-1:
+                  value:
+                    newUserId: cieuser004
+                    userName: tom
+                    stores:
+                      - name: West Stores
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorised'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/ConflictError'
+        '500':
+          $ref: '#/components/responses/UnexpectedError'
+      description: update users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutUsers'
+            examples:
+              example-1:
+                value:
+                  newUserId: cieuser004
+                  userName: tom
+                  stores:
+                    - name: West Stores
+      tags:
+        - User
+
     delete:
-      summary: delete cis users
-      operationId: delete-cis-users-userId
+      summary: delete users
+      operationId: delete-users-userId
       responses:
         '200':
           description: OK
@@ -353,14 +163,15 @@ paths:
         '500':
           $ref: '#/components/responses/UnexpectedError'
       tags:
-        - CIS User
-      description: delete cis users
-  '/cis/users/{userId}/restore':
+        - User
+      description: delete users
+  '/users/{userId}/restore':
     parameters:
       - $ref: '#/components/parameters/userId'
+
     put:
-      summary: restore cis users
-      operationId: put-cis-users-userId-delete
+      summary: restore users
+      operationId: put-users-userId-delete
       responses:
         '200':
           description: OK
@@ -375,76 +186,57 @@ paths:
         '500':
           $ref: '#/components/responses/UnexpectedError'
       tags:
-        - CIS User
-      description: restore cis users
+        - User
+      description: restore users
+
 components:
   schemas:
-    PostCisUsers:
-      title: PostCisUsers
+    PostUsers:
+      title: PostUsers
       type: object
-      description: 'Model of POST /cisUsers/{userId}'
+      description: 'Model of POST /Users/{userId}'
       x-examples:
         example-1:
           userName: tom
-          status: Active
-          roles:
-            - roleName: Manager
           stores:
-            - storeName: West Store
+            - name: West Store
       properties:
+        newUserId:
+          type: string
+          description: new user id
+          maxLength: 20
+          pattern: '^[a-z0-9]+$'
         userName:
           type: string
           description: user name
           maxLength: 40
           pattern: '^[a-z0-9!@#\\$%&\\*\\(\\)~\\?=;:,\\.\\{\\}\\+\\-`\\|\\/<>]+$'
           minLength: 1
-        status:
-          type: string
-          description: status
-          enum:
-            - Active
-            - Inactive
-        roles:
-          type: array
-          items:
-            type: object
-            properties:
-              roleName:
-                type: string
-                description: role name
-                minLength: 1
-            required:
-              - roleName
         stores:
           type: array
           items:
             type: object
             properties:
-              storeName:
+              name:
                 type: string
                 description: store name
                 minLength: 1
             required:
-              - storeName
+              - name
       required:
+        - newUserId
         - userName
-        - status
-        - roles
         - stores
-    PutCisUsers:
-      title: PutCisUsers
+    PutUsers:
+      title: PutUsers
       type: object
-      description: 'Model of PUT /cis/users/{userId}'
+      description: 'Model of PUT /users/{userId}'
       x-examples:
         example-1:
           newUserId: cieuser004
           userName: tom
-          status: Active
-          roles:
-            - roleName: Manager
           stores:
-            - storeName: West Store
-          passwordChangeFlag: true
+            - name: West Store
       properties:
         newUserId:
           type: string
@@ -458,44 +250,23 @@ components:
           maxLength: 40
           pattern: '^[a-z0-9!@#\\$%&\\*\\(\\)~\\?=;:,\\.\\{\\}\\+\\-`\\|\\/<>]+$'
           minLength: 1
-        status:
-          type: string
-          description: status
-          enum:
-            - Active
-            - Inactive
-        roles:
-          type: array
-          items:
-            type: object
-            properties:
-              roleName:
-                type: string
-                description: role name
-                minLength: 1
-            required:
-              - roleName
         stores:
           type: array
           items:
             type: object
             properties:
-              storeName:
+              name:
                 type: string
                 description: store name
                 minLength: 1
             required:
-              - storeName
-        passwordChangeFlag:
-          type: boolean
-          description: password change flag(true is checked)
+              - name
       required:
         - newUserId
         - userName
-        - status
-        - roles
         - stores
   securitySchemes: {}
+
   responses:
     BadRequest:
       description: Bad Request
@@ -601,190 +372,10 @@ components:
               value:
                 code: 500
                 message: Unexpected Error
-    GetLogin:
-      description: 'Response of Get /login '
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              authUrl:
-                type: string
-                description: URL for the login screen
-            required:
-              - authUrl
-          examples:
-            example-1:
-              value:
-                authUrl: 'https://eu-de.appid.cloud.ibm.com/oauth/v4/325711e7-86e8-4bb0-bf09-f2547agea8ea/authorization?client_id=e5279777-fc3d-45b9-b6c7-7355e36d5409&response_type=code&redirect_uri=http://localhost:3000/token_callback&scope=appid_default&language=eu&state=EzRsK3lYg41BjtQ4-TYd8zX4H2g%3D'
-        application/xml:
-          schema:
-            type: object
-            properties: {}
-      headers: {}
-    GetUserInfo:
-      description: Response of Get /userInfo
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              userId:
-                type: string
-                description: IBM Cloud Directory User ID
-              email:
-                type: string
-                description: email address
-              displayName:
-                type: string
-                description: IBM Cloud Directory User Name Display String
-              language:
-                type: string
-                description: settings language
-              firstLoginDate:
-                type: string
-                description: First login date time
-            required:
-              - userId
-              - email
-              - displayName
-          examples:
-            example-1:
-              value:
-                userId: a638bfa0-099d-41c3-a840-fa3e9897953a
-                email: sample@test.com
-                displayName: User Name
-                firstLoginDate: '2020-12-01T01:02:03+09:00'
-    GetAreas:
+    
+    GetUsersList:
       description: |-
-        Response of Get /areas
-        If the number of results obtained is zero, status returns 200.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              totalCount:
-                type: number
-                description: total count
-              items:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    areaName:
-                      type: string
-                      description: area name
-                  required:
-                    - areaName
-            required:
-              - totalCount
-              - items
-          examples:
-            example-1:
-              value:
-                totalCount: 2
-                items:
-                  - areaName: East Area
-                  - areaName: West Area
-            example-2:
-              value:
-                totalCount: 0
-                items: []
-    GetStores:
-      description: |-
-        Response of Get /stores
-        If the number of results obtained is zero, status returns 200.
-        If the store does not belong to an area, make the area No Area.
-        Check the samples.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              totalCount:
-                type: number
-                description: total count
-              items:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    areaName:
-                      type: string
-                      description: area name
-                    stores:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          storeName:
-                            type: string
-                            description: store name
-                        required:
-                          - storeName
-                  required:
-                    - areaName
-            required:
-              - totalCount
-              - items
-          examples:
-            example-1:
-              value:
-                totalCount: 2
-                items:
-                  - areaName: West Area
-                    stores:
-                      - storeName: West Store
-                  - areaName: No Area
-                    stores:
-                      - storeName: Store
-            example-2:
-              value:
-                totalCount: 0
-                items: []
-    GetCisRoles:
-      description: |-
-        Response of Get /cis/roles
-        If the number of results obtained is zero, status returns 200.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              totalCount:
-                type: number
-                description: total count
-              items:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    roleName:
-                      type: string
-                      description: role name
-                  required:
-                    - roleName
-            required:
-              - totalCount
-              - items
-          examples:
-            example-1:
-              value:
-                totalCount: 5
-                items:
-                  - roleName: Manager
-                  - roleName: CIT
-                  - roleName: Service
-                  - roleName: Cashier
-                  - roleName: Other
-            example-2:
-              value:
-                totalCount: 0
-                items: []
-    GetCisUsersList:
-      description: |-
-        Response of Get /cis/users
+        Response of Get /users
         If the number of results obtained is zero, status returns 200.
       content:
         application/json:
@@ -805,12 +396,6 @@ components:
                     userName:
                       type: string
                       description: user name
-                    status:
-                      type: string
-                      description: status
-                      enum:
-                        - Active
-                        - Inactive
                     deleteFlag:
                       type: boolean
                       description: delete flag(true is deleted)
@@ -819,32 +404,27 @@ components:
                       items:
                         type: object
                         properties:
-                          areaName:
+                          name:
                             type: string
                             description: area name
                         required:
-                          - areaName
+                          - name
                     stores:
                       type: array
                       items:
                         type: object
                         properties:
-                          storeName:
+                          name:
                             type: string
                             description: store name
                         required:
-                          - storeName
-                    totalCount:
-                      type: number
-                      description: total count(without offset and limit)
+                          - name
                   required:
                     - userId
                     - userName
-                    - status
                     - deleteFlag
                     - areas
                     - stores
-                    - totalCount
             required:
               - totalCount
               - items
@@ -855,35 +435,32 @@ components:
                 items:
                   - userId: cisuser1
                     userName: cis-user-1-1
-                    status: Active
                     deleteFlag: false
                     areas:
-                      - areaName: East Area
+                      - name: East Area
                     stores:
-                      - storeName: Himeji HQ
-                    totalCount: 15
+                      - name: Himeji HQ
                   - userId: cisuser2
                     userName: cis-user-1-2
-                    status: Active
                     deleteFlag: false
                     areas:
-                      - areaName: East Area
-                      - areaName: West Area
-                      - areaName: South Area
+                      - name: East Area
+                      - name: West Area
+                      - name: South Area
                     stores:
-                      - storeName: Himeji HQ
-                      - storeName: Tokyo HQ
-                      - storeName: Shinagawa Office
-                      - storeName: Saitama Factory
-                    totalCount: 15
+                      - name: Himeji HQ
+                      - name: Tokyo HQ
+                      - name: Shinagawa Office
+                      - name: Saitama Factory
             example-2:
               value:
                 totalCount: 0
                 items: []
       headers: {}
-    GetCisUsers:
+
+    GetUsers:
       description: |-
-        Response of Get /cis/users/{userId}
+        Response of Get /users/{userId}
         If the number of results obtained is zero, status returns 200.
       content:
         application/json:
@@ -895,12 +472,6 @@ components:
                 description: total count
               items:
                 type: object
-                required:
-                  - userId
-                  - userName
-                  - status
-                  - roles
-                  - stores
                 properties:
                   userId:
                     type: string
@@ -908,35 +479,20 @@ components:
                   userName:
                     type: string
                     description: user name
-                  status:
-                    type: string
-                    description: status
-                    enum:
-                      - Active
-                      - Inactive
-                  passwordChangeFlag:
-                    type: boolean
-                    description: password change flag(true is checked)
-                  roles:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        roleName:
-                          type: string
-                          description: role name
-                      required:
-                        - roleName
                   stores:
                     type: array
                     items:
                       type: object
                       properties:
-                        storeName:
+                        name:
                           type: string
                           description: store name
                       required:
-                        - storeName
+                        - name
+                required:
+                  - userId
+                  - userName
+                  - stores
             required:
               - totalCount
           examples:
@@ -946,50 +502,16 @@ components:
                 items:
                   userId: cisuser1
                   userName: cis-user-1-1
-                  status: Active
-                  passwordChangeFlag: false
                   deleteFlag: false
-                  roles:
-                    - roleName: Manager
                   areas:
-                    - areaName: East Area
+                    - name: East Area
                   stores:
-                    - storeName: Himeji HQ
+                    - name: Himeji HQ
             example-2:
               value:
                 totalCount: 0
+
   parameters:
-    connect.sid:
-      name: connect.sid
-      in: cookie
-      required: true
-      schema:
-        type: string
-      description: Session ID (connect.sid=xxxxx)
-    applicationId:
-      name: applicationId
-      in: query
-      required: true
-      schema:
-        type: number
-        minimum: 0
-      description: Type of Application ID
-    redirectUrl:
-      name: redirectUrl
-      in: query
-      required: true
-      schema:
-        type: string
-        minLength: 1
-      description: URL to redirect after authentication
-    code:
-      name: code
-      in: query
-      required: false
-      schema:
-        type: string
-        minLength: 1
-      description: Authorization code (OAuth2 grant type = authorization_code)
     areaName:
       name: areaName
       in: query
@@ -998,24 +520,6 @@ components:
         type: string
         minLength: 1
       description: Area name
-    limit:
-      name: limit
-      in: query
-      required: false
-      schema:
-        type: integer
-        default: 10
-        minimum: 0
-      description: The number of items to return
-    offset:
-      name: offset
-      in: query
-      required: false
-      schema:
-        type: integer
-        default: 0
-        minimum: 0
-      description: The number of items to skip before starting to collect the result set
     storeName:
       name: storeName
       in: query
@@ -1034,9 +538,6 @@ components:
         pattern: '^[a-z0-9]+$'
         minLength: 1
       description: User ID
+
 tags:
-  - name: Area
-  - name: CIS Role
-  - name: CIS User
-  - name: Store
-  - name: User Auth
+  - name: User
