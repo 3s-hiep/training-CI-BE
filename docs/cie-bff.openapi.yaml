@@ -7,11 +7,13 @@ info:
     email: cyril.baurand@ch.glory-global.com
     name: Cyril Baurand
 servers:
-  - url: 'http://localhost:3000'
+  - url: 'http://localhost:3001'
     description: local machine for debug
 paths:
 
   /users:
+    parameters: []
+
     get:
       summary: get available users
       responses:
@@ -31,30 +33,6 @@ paths:
       description: Get user list
       tags:
         - User
-    parameters: []
-
-  '/users/{userId}':
-    get:
-      summary: get a user info
-      responses:
-        '200':
-          $ref: '#/components/responses/GetUsers'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorised'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '500':
-          $ref: '#/components/responses/UnexpectedError'
-      operationId: get-users-userid
-      description: get a user information
-      tags:
-        - User
-    parameters:
-      - $ref: '#/components/parameters/userId'
 
     post:
       summary: creates new users
@@ -69,10 +47,12 @@ paths:
               examples:
                 example-1:
                   value:
-                    newUserId: cieuser004
+                    userId: cieuser004
                     userName: tom
                     stores:
                       - name: West Store
+                    areas:
+                      - name: East Area
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -93,13 +73,41 @@ paths:
             examples:
               example-1:
                 value:
-                  newUserId: cieuser004
+                  userId: cieuser004
                   userName: tom
                   stores:
                     - name: West Store
+                  areas:
+                    - name: East Area
       tags:
         - User
       description: creates new users
+
+    
+
+  '/users/{userId}':
+    parameters:
+      - $ref: '#/components/parameters/userId'
+
+    get:
+      summary: get a user info
+      responses:
+        '200':
+          $ref: '#/components/responses/GetUsers'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorised'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/UnexpectedError'
+      operationId: get-users-userid
+      description: get a user information
+      tags:
+        - User
 
     put:
       summary: update users
@@ -114,10 +122,11 @@ paths:
               examples:
                 example-1:
                   value:
-                    newUserId: cieuser004
                     userName: tom
                     stores:
                       - name: West Stores
+                    areas:
+                      - name: East Area
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -139,10 +148,11 @@ paths:
             examples:
               example-1:
                 value:
-                  newUserId: cieuser004
                   userName: tom
                   stores:
                     - name: West Stores
+                  areas:
+                    - name: East Area
       tags:
         - User
 
@@ -165,6 +175,7 @@ paths:
       tags:
         - User
       description: delete users
+
   '/users/{userId}/restore':
     parameters:
       - $ref: '#/components/parameters/userId'
@@ -194,14 +205,16 @@ components:
     PostUsers:
       title: PostUsers
       type: object
-      description: 'Model of POST /Users/{userId}'
+      description: 'Model of POST /Users'
       x-examples:
         example-1:
           userName: tom
           stores:
             - name: West Store
+          areas:
+            - name: East Area
       properties:
-        newUserId:
+        userId:
           type: string
           description: new user id
           maxLength: 20
@@ -223,27 +236,32 @@ components:
                 minLength: 1
             required:
               - name
+        areas:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: area name
+            required:
+              - name
       required:
-        - newUserId
+        - userId
         - userName
         - stores
     PutUsers:
       title: PutUsers
       type: object
-      description: 'Model of PUT /users/{userId}'
+      description: 'Model of PUT /users'
       x-examples:
         example-1:
-          newUserId: cieuser004
           userName: tom
           stores:
             - name: West Store
+          areas:
+            - name: East Area
       properties:
-        newUserId:
-          type: string
-          description: new user id
-          maxLength: 20
-          pattern: '^[a-z0-9]+$'
-          minLength: 1
         userName:
           type: string
           description: user name
@@ -261,8 +279,17 @@ components:
                 minLength: 1
             required:
               - name
+        areas:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: area name
+            required:
+              - name
       required:
-        - newUserId
         - userName
         - stores
   securitySchemes: {}
@@ -382,80 +409,66 @@ components:
           schema:
             type: object
             properties:
-              totalCount:
-                type: number
-                description: total count
-              items:
+              userId:
+                type: string
+                description: user ID(User ID of user)
+              userName:
+                type: string
+                description: user name
+              deleteFlag:
+                type: boolean
+                description: delete flag(true is deleted)
+              areas:
                 type: array
                 items:
                   type: object
                   properties:
-                    userId:
+                    name:
                       type: string
-                      description: user ID(User ID of CIS user)
-                    userName:
-                      type: string
-                      description: user name
-                    deleteFlag:
-                      type: boolean
-                      description: delete flag(true is deleted)
-                    areas:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          name:
-                            type: string
-                            description: area name
-                        required:
-                          - name
-                    stores:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          name:
-                            type: string
-                            description: store name
-                        required:
-                          - name
+                      description: area name
                   required:
-                    - userId
-                    - userName
-                    - deleteFlag
-                    - areas
-                    - stores
+                    - name
+              stores:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: store name
+                  required:
+                    - name
             required:
-              - totalCount
-              - items
+              - userId
+              - userName
+              - deleteFlag
+              - areas
+              - stores
           examples:
             example-1:
               value:
-                totalCount: 2
-                items:
-                  - userId: cisuser1
-                    userName: cis-user-1-1
-                    deleteFlag: false
-                    areas:
-                      - name: East Area
-                    stores:
-                      - name: Himeji HQ
-                  - userId: cisuser2
-                    userName: cis-user-1-2
-                    deleteFlag: false
-                    areas:
-                      - name: East Area
-                      - name: West Area
-                      - name: South Area
-                    stores:
-                      - name: Himeji HQ
-                      - name: Tokyo HQ
-                      - name: Shinagawa Office
-                      - name: Saitama Factory
+                - userId: cisuser1
+                  userName: cis-user-1-1
+                  deleteFlag: false
+                  areas:
+                    - name: East Area
+                  stores:
+                    - name: Himeji HQ
+                - userId: cisuser2
+                  userName: cis-user-1-2
+                  deleteFlag: false
+                  areas:
+                    - name: East Area
+                    - name: West Area
+                    - name: South Area
+                  stores:
+                    - name: Himeji HQ
+                    - name: Tokyo HQ
+                    - name: Shinagawa Office
+                    - name: Saitama Factory
             example-2:
               value:
-                totalCount: 0
-                items: []
+                []
       headers: {}
 
     GetUsers:
@@ -467,49 +480,38 @@ components:
           schema:
             type: object
             properties:
-              totalCount:
-                type: number
-                description: total count
-              items:
-                type: object
-                properties:
-                  userId:
-                    type: string
-                    description: user ID(User ID of CIS user)
-                  userName:
-                    type: string
-                    description: user name
-                  stores:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        name:
-                          type: string
-                          description: store name
-                      required:
-                        - name
-                required:
-                  - userId
-                  - userName
-                  - stores
+              userId:
+                type: string
+                description: user ID(User ID of user)
+              userName:
+                type: string
+                description: user name
+              stores:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: store name
+                  required:
+                    - name
             required:
-              - totalCount
+              - userId
+              - userName
+              - stores
           examples:
             example-1:
               value:
-                totalCount: 1
-                items:
-                  userId: cisuser1
-                  userName: cis-user-1-1
-                  deleteFlag: false
-                  areas:
-                    - name: East Area
-                  stores:
-                    - name: Himeji HQ
+                userId: cisuser1
+                userName: cis-user-1-1
+                deleteFlag: false
+                areas:
+                  - name: East Area
+                stores:
+                  - name: Himeji HQ
             example-2:
               value:
-                totalCount: 0
 
   parameters:
     areaName:
