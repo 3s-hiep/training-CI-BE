@@ -1,3 +1,4 @@
+import { IsNotEmpty } from "class-validator";
 import { IAreas } from "../areas/areas.controller.i";
 import { IStore } from "../stores/stores.controller.i";
 
@@ -11,15 +12,27 @@ export interface IUser {
     areas: Array<IAreas>;
 }
 
-export interface CreateUserDto {
+export class CreateUserDto {
+    @IsNotEmpty()
     userId: string;
+
+    @IsNotEmpty()
     userName: string;
+
+    @IsNotEmpty()
     stores: Array<IStore>;
+
+    @IsNotEmpty()
     areas: Array<IAreas>;
 }
 
-export interface UpdateUserDto {
+export class UpdateUserDto {
+    @IsNotEmpty()
     userName: string;
-    stores: Array<IStore>;
-    areas: Array<IAreas>;
+    
+    // @IsNotEmpty()
+    // stores: Array<IStore>;
+
+    // @IsNotEmpty()
+    // areas: Array<IAreas>;
 }

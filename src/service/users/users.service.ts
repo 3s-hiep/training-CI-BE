@@ -1,47 +1,33 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { UsersRepository } from '../../domain/repository/users/users.repository';
 import { CreateUserDto, IUser, UpdateUserDto } from './users.service.i';
 
 @Injectable()
 export class UsersService {
-    private users: IUser[] = [];
+    constructor(@InjectRepository(UsersRepository) private usersRepository: UsersRepository) { }
 
-    getUsersList(): IUser[] {
-        return this.users
+    async getUsersList(): Promise<IUser[]> {
+        return this.usersRepository.getUsersList();
     }
 
-    getUserById(userId: string): IUser {
-        return this.users.find(user => user.userId === userId);
+    async getUserById(userId: string): Promise<IUser> {
+        return this.usersRepository.getUserById(userId);
     }
 
-    createUser(createUserDto: CreateUserDto): IUser {
-        const user: IUser = {
-            userId: createUserDto.userId,
-            userName: createUserDto.userName,
-            deleteFlag: false,
-            stores: createUserDto.stores,
-            areas: createUserDto.areas
-        };
-
-        this.users.push(user);
-        return user;
+    async createUser(createUserDto: CreateUserDto): Promise<IUser> {
+        return this.usersRepository.createUser(createUserDto);
     }
 
-    updateUser(userId: string, updateUserDto: UpdateUserDto): IUser {
-        var user = this.users.find(user => user.userId = userId);
-        user.userName = updateUserDto.userName;
-        user.stores = updateUserDto.stores;
-        user.areas = updateUserDto.areas;
-
-        return user;
+    async updateUser(userId: string, updateUserDto: UpdateUserDto): Promise<IUser> {
+        return this.usersRepository.updateUser(userId, updateUserDto);
     }
 
-    deleteUser(userId: string): void {
-        var user = this.users.find(user => user.userId = userId);
-        user.deleteFlag = true;
+    async deleteUser(userId: string): Promise<void> {
+        return this.usersRepository.deleteUser(userId);
     }
 
-    restoreUser(userId: string): void {
-        var user = this.users.find(user => user.userId = userId);
-        user.deleteFlag = false;
+    async restoreUser(userId: string): Promise<void> {
+        return this.usersRepository.restoreUser(userId);
     }
 }

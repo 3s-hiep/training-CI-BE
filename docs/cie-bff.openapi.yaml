@@ -250,6 +250,7 @@ components:
         - userId
         - userName
         - stores
+        - areas
     PutUsers:
       title: PutUsers
       type: object
@@ -292,6 +293,7 @@ components:
       required:
         - userName
         - stores
+        - areas
   securitySchemes: {}
 
   responses:
@@ -500,6 +502,7 @@ components:
               - userId
               - userName
               - stores
+              - areas
           examples:
             example-1:
               value:

@@ -11,15 +11,15 @@ export interface IUser {
     areas: Array<IAreas>;
 }
 
-export interface CreateUserDto {
+export class CreateUserDto {
     userId: string;
     userName: string;
     stores: Array<IStore>;
     areas: Array<IAreas>;
 }
 
-export interface UpdateUserDto {
+export class UpdateUserDto {
     userName: string;
-    stores: Array<IStore>;
-    areas: Array<IAreas>;
+    // stores: Array<IStore>;
+    // areas: Array<IAreas>;
 }
