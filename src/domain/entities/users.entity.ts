@@ -13,9 +13,9 @@ export class Users extends BaseEntity {
     @Column()
     deleteFlag: boolean;
 
-    @OneToMany(() => Stores, store => store.user)
+    @OneToMany(() => Stores, store => store.user, { cascade: true })
     stores: Stores[];
 
-    @OneToMany(() => Areas, area => area.user)
+    @OneToMany(() => Areas, area => area.user, { cascade: true })
     areas: Areas[];
 }

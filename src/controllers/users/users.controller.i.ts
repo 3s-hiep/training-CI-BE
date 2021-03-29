@@ -30,9 +30,9 @@ export class UpdateUserDto {
     @IsNotEmpty()
     userName: string;
     
-    // @IsNotEmpty()
-    // stores: Array<IStore>;
+    @IsNotEmpty()
+    stores: Array<IStore>;
 
-    // @IsNotEmpty()
-    // areas: Array<IAreas>;
+    @IsNotEmpty()
+    areas: Array<IAreas>;
 }

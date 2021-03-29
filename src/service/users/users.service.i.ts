@@ -20,6 +20,6 @@ export class CreateUserDto {
 
 export class UpdateUserDto {
     userName: string;
-    // stores: Array<IStore>;
-    // areas: Array<IAreas>;
+    stores: Array<IStore>;
+    areas: Array<IAreas>;
 }
